@@ -25,12 +25,40 @@ def close_connection(exception):
 def index():
   return render_template("index.html")
 
-@app.route("/teacher/quiz/<teacher_uuid>/grade")
+@app.route("/teacher/quiz/<teacher_uuid>/grade", methods=["GET", "POST"])
 def grade_quiz(teacher_uuid):
-  db = get_db()
-  cursor = db.cursor()
-  student_uuid = cursor.execute("SELECT student_uuid FROM quiz WHERE teacher_uuid=?", (teacher_uuid,)).fetchone()[0]
-  return render_template('grade.html', teacher_uuid=teacher_uuid, student_uuid=student_uuid)
+  if request.method == "GET":
+    db = get_db()
+    cursor = db.cursor()
+    student_uuid, quiz_id = cursor.execute("SELECT student_uuid, id FROM quiz WHERE teacher_uuid=?", (teacher_uuid,)).fetchone()
+    print("student uuid, quiz id", student_uuid, quiz_id)
+
+    questions = cursor.execute("SELECT text_1, text_2, minor_index FROM question WHERE quiz_id=?", (quiz_id,)).fetchall()
+    question_hashes = [
+      {'text_1': q[0], 'text_2': q[1], 'minor_index': q[2]}
+      for q in questions
+    ]
+
+    answers = cursor.execute(
+      "SELECT student_id, minor_index, response_1 FROM answer WHERE quiz_id=?",
+      (quiz_id,)
+    ).fetchall()
+
+    for qh in question_hashes:
+      qh['answers'] = [
+        {
+          'student_id': a[0],
+          'response_1': a[2]
+        }
+        for a in answers
+        if a[1] == qh['minor_index']
+      ]
+
+    return render_template('grade.html', teacher_uuid=teacher_uuid, student_uuid=student_uuid, questions=question_hashes)
+
+  if request.method == "POST":
+    print(request.form)
+    return {}
 
 @app.route("/teacher/quiz/<teacher_uuid>/links")
 def quiz_links(teacher_uuid):

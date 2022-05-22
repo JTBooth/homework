@@ -8,8 +8,41 @@
   <body>
     <header>Iroha Forms</header>
     <main>
-      You can grade the quiz here
-      {{teacher_uuid}}
+      <form action="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}" method="POST">
+        <ol>
+        {% for q in questions %}
+          <li>
+            {{q['text_1']}}
+            <input type="text" disabled>
+            {{q['text_2']}}
+
+            <ul>
+            {% for a in q['answers'] %}
+              <li>
+                Student {{a['student_id']}}: 
+                <input type="text" value="{{a['response_1']}}" disabled>
+                <label for="q-{{q['minor_index']}}-s-{{a['student_id']}}-maru">O</label>
+                <input 
+                  type="radio" 
+                  name="q-{{q['minor_index']}}-s-{{a['student_id']}}"
+                  id="q-{{q['minor_index']}}-s-{{a['student_id']}}-maru"
+                  value="O"
+                >
+                <label for="q-{{q['minor_index']}}-s-{{a['student_id']}}-batsu">X</label>
+                <input 
+                  type="radio" 
+                  name="q-{{q['minor_index']}}-s-{{a['student_id']}}"
+                  id="q-{{q['minor_index']}}-s-{{a['student_id']}}-batsu"
+                  value="X"
+                >
+              </li>
+            {% endfor %}
+            </ul>
+          </li>  
+        {% endfor %}
+        </ol>
+        <input type="submit">
+      </form>
     </main>
   </body>
 </html>
