@@ -84,7 +84,30 @@ def submit_quiz(student_uuid):
 
 @app.route("/student/quiz/<student_uuid>/feedback/<student_id>", methods=["GET"])
 def see_feedback(student_uuid, student_id):
-  return render_template('feedback.html', student_uuid=student_uuid, student_id=student_id)
+  db = get_db()
+  cursor = db.cursor()
+
+  quiz_id = cursor.execute("SELECT id FROM quiz WHERE student_uuid=?", (student_uuid,)).fetchone()[0]
+
+  questions = cursor.execute(
+    "SELECT text_1, text_2, minor_index FROM question WHERE quiz_id=?", 
+    (quiz_id,)
+  ).fetchall()
+  question_hashes = [
+    {'text_1': q[0], 'text_2': q[1], 'minor_index': q[2]}
+    for q in questions
+  ]
+
+  answers = cursor.execute(
+    "SELECT minor_index, response_1 FROM answer WHERE quiz_id=? AND student_id=?", 
+    (quiz_id, student_id)
+  ).fetchall()
+
+  answers_hash = {answer[0]: answer[1] for answer in answers}
+  for question in question_hashes:
+    question['response_1'] = answers_hash[question['minor_index']]
+
+  return render_template('feedback.html', questions=question_hashes)
 
 @app.route("/teacher/create_quiz", methods=["POST"])
 def create_quiz():

@@ -8,9 +8,15 @@
   <body>
     <header>Iroha Forms</header>
     <main>
-      You can see your answers and feedback here
-      {{student_uuid}}
-      {{student_id}}
+      <ol>
+      {% for q in questions %}
+        <li class="quiz-question">
+          {{q['text_1']}}
+          <input type="text" value="{{q['response_1']}}" disabled>
+          {{q['text_2']}}
+        </li>
+      {% endfor %}
+      </ol>
     </main>
   </body>
 </html>
