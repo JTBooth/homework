@@ -1,0 +1,37 @@
+<!DOCTYPE html lang="jp">
+<html>
+  <head>
+    <link rel="stylesheet" 
+    type="text/css" 
+    href="{{ url_for('static', filename='styles/styles.css')}}">
+    <script src="{{ url_for('static', filename='scripts/create_quiz_scripts.js') }}"></script>
+  </head>
+  <body>
+    <header>Iroha Forms</header>
+    <main>
+      <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form">
+        <div class="quiz-header">
+          <div class="quiz-row">
+            <label>quiz name</label>
+            <input type="text" name="header-quiz_name">
+          </div>
+          <div class="quiz-row">
+            <label>teacher name</label>
+            <input type="text" name="header-teacher_name">
+          </div>
+          <div class="quiz-row">
+            <label>teacher email</label>
+            <input type="text" name="header-teacher_email">
+          </div>
+        </div>
+        <ol class="quiz-body" id="quiz-body">
+          <li is="quiz-question"></li>
+          <li class="quiz-add-question">
+            <button type="button" onclick="addQuestion(event)">Add Question</button>
+          </li>
+        </ol>
+        <input type="submit"></input>
+      </form>
+    </main>
+  </body>
+</html>

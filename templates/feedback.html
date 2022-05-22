@@ -1,0 +1,16 @@
+<!DOCTYPE html lang="jp">
+<html>
+  <head>
+    <link rel="stylesheet" 
+    type="text/css" 
+    href="{{ url_for('static', filename='styles/styles.css')}}">
+  </head>
+  <body>
+    <header>Iroha Forms</header>
+    <main>
+      You can see your answers and feedback here
+      {{student_uuid}}
+      {{student_id}}
+    </main>
+  </body>
+</html>
