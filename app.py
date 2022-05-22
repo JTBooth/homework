@@ -40,25 +40,35 @@ def grade_quiz(teacher_uuid):
     ]
 
     answers = cursor.execute(
-      "SELECT student_id, minor_index, response_1 FROM answer WHERE quiz_id=?",
+      "SELECT id, student_id, minor_index, response_1 FROM answer WHERE quiz_id=?",
       (quiz_id,)
     ).fetchall()
 
     for qh in question_hashes:
       qh['answers'] = [
         {
-          'student_id': a[0],
-          'response_1': a[2]
+          'id': a[0],
+          'student_id': a[1],
+          'response_1': a[3]
         }
         for a in answers
-        if a[1] == qh['minor_index']
+        if a[2] == qh['minor_index']
       ]
 
     return render_template('grade.html', teacher_uuid=teacher_uuid, student_uuid=student_uuid, questions=question_hashes)
 
   if request.method == "POST":
-    print(request.form)
-    return {}
+    db = get_db()
+    cursor = db.cursor()
+
+    parsed_form = []
+
+    for key, val in request.form.items():
+      _, answer_id = key.split("-")
+      parsed_form.append({'answer_id': answer_id, 'score': val})
+    cursor.executemany("INSERT INTO feedback (answer_id, score) VALUES (:answer_id, :score)", parsed_form)
+    db.commit()
+    return redirect(request.url)
 
 @app.route("/teacher/quiz/<teacher_uuid>/links")
 def quiz_links(teacher_uuid):

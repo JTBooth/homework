@@ -43,3 +43,10 @@ CREATE TABLE IF NOT EXISTS answer (
   FOREIGN KEY (quiz_id)    REFERENCES quiz    (id)
 );
 
+CREATE TABLE IF NOT EXISTS feedback (
+  id INTEGER PRIMARY KEY,
+  answer_id INTEGER,
+  score TEXT,
+
+  FOREIGN KEY (answer_id) REFERENCES answer (id)
+);

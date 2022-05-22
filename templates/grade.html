@@ -21,18 +21,18 @@
               <li>
                 Student {{a['student_id']}}: 
                 <input type="text" value="{{a['response_1']}}" disabled>
-                <label for="q-{{q['minor_index']}}-s-{{a['student_id']}}-maru">O</label>
+                <label for="a-{{a['id']}}-maru">O</label>
                 <input 
                   type="radio" 
-                  name="q-{{q['minor_index']}}-s-{{a['student_id']}}"
-                  id="q-{{q['minor_index']}}-s-{{a['student_id']}}-maru"
+                  name="a-{{a['id']}}"
+                  id="a-{{a['id']}}-maru"
                   value="O"
                 >
-                <label for="q-{{q['minor_index']}}-s-{{a['student_id']}}-batsu">X</label>
+                <label for="a-{{a['id']}}-batsu">X</label>
                 <input 
                   type="radio" 
-                  name="q-{{q['minor_index']}}-s-{{a['student_id']}}"
-                  id="q-{{q['minor_index']}}-s-{{a['student_id']}}-batsu"
+                  name="a-{{a['id']}}"
+                  id="a-{{a['id']}}-batsu"
                   value="X"
                 >
               </li>
