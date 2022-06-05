@@ -8,15 +8,51 @@
   <body>
     <header>Iroha Forms</header>
     <main>
-      <ol>
-      {% for q in questions %}
-        <li class="quiz-question">
-          {{q['text_1']}}
-          <input type="text" value="{{q['response_1']}}" disabled>
-          {{q['text_2']}}
-        </li>
-      {% endfor %}
-      </ol>
+      <div class="quiz">
+        <div class="quiz-header">
+          <fieldset>
+            <div>
+              <label>quiz name</label>
+              <span>{{quiz_headers["quiz name"]}}</span>
+            </div>
+            <div>
+              <label>teacher name</label>
+              <span>{{quiz_headers["teacher name"]}}</span>
+            </div>
+            <div>
+              <label>teacher email</label>
+              <span>{{quiz_headers["teacher email"]}}</span>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label>student name</label>
+              <span>{{student_metadata["student name"]}}</span>
+            </div>
+            <div>
+              <label>student email</label>
+              <span>{{student_metadata["student email"]}}</span>
+            </div>
+          </fieldset>
+        </div>
+        <ol>
+        {% for q in questions %}
+          <li class="quiz-question">
+            {{q['text_1']}}
+            <input type="text" value="{{q['response_1']}}" disabled>
+            {{q['text_2']}}
+            <div>
+              <label>Score:</label>
+              {% if q['score'] %}
+              {{q['score']}}
+              {% else %}
+              (Not yet scored)
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+        </ol>
+      </div>
     </main>
   </body>
 </html>

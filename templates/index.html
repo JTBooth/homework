@@ -10,27 +10,27 @@
     <header>Iroha Forms</header>
     <main>
       <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form">
-        <div class="quiz-header">
-          <div class="quiz-row">
+        <fieldset>
+          <div>
             <label>quiz name</label>
             <input type="text" name="header-quiz_name">
           </div>
-          <div class="quiz-row">
+          <div>
             <label>teacher name</label>
             <input type="text" name="header-teacher_name">
           </div>
-          <div class="quiz-row">
+          <div>
             <label>teacher email</label>
             <input type="text" name="header-teacher_email">
           </div>
-        </div>
-        <ol class="quiz-body" id="quiz-body">
+        </fieldset>
+        <ol id="quiz-body">
           <li is="quiz-question"></li>
-          <li class="quiz-add-question">
+          <li class="unstyled-li">
             <button type="button" onclick="addQuestion(event)">Add Question</button>
           </li>
         </ol>
-        <input type="submit"></input>
+        <button type="submit">Submit</input>
       </form>
     </main>
   </body>

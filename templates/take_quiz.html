@@ -8,18 +8,34 @@
   <body>
     <header>Iroha Forms</header>
     <main>
-      <form action="{{ url_for('submit_quiz', student_uuid=student_uuid) }}" method="POST">
-        <fieldset class="quiz-header">
-          <div>
-            <label>Name</label>
-            <input type="text" name="header-student_name">
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="text" name="header-student_email">
-          </div>
-        </fieldset>
-        <ul>
+      <form action="{{ url_for('submit_quiz', student_uuid=student_uuid) }}" method="POST" class="quiz">
+        <div class="quiz-header">
+          <fieldset>
+            <div>
+              <label>quiz name</label>
+              <span>{{quiz_headers["quiz name"]}}</span>
+            </div>
+            <div>
+              <label>teacher name</label>
+              <span>{{quiz_headers["teacher name"]}}</span>
+            </div>
+            <div>
+              <label>teacher email</label>
+              <span>{{quiz_headers["teacher email"]}}</span>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label>Name</label>
+              <input type="text" name="header-student_name">
+            </div>
+            <div>
+              <label>Email</label>
+              <input type="text" name="header-student_email">
+            </div>
+          </fieldset>
+        </div>
+        <ol>
           {% for q in questions %}
           <li class="quiz-question">
             {{q[0]}}
@@ -27,8 +43,8 @@
             {{q[1]}}
           </li>
           {% endfor %}
-        </ul>
-        <input type="submit">
+        </ol>
+        <button type="submit">Submit</button>
       </form>
     </main>
   </body>

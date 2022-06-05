@@ -31,30 +31,54 @@ def grade_quiz(teacher_uuid):
     db = get_db()
     cursor = db.cursor()
     student_uuid, quiz_id = cursor.execute("SELECT student_uuid, id FROM quiz WHERE teacher_uuid=?", (teacher_uuid,)).fetchone()
-    print("student uuid, quiz id", student_uuid, quiz_id)
 
-    questions = cursor.execute("SELECT text_1, text_2, minor_index FROM question WHERE quiz_id=?", (quiz_id,)).fetchall()
+    questions = cursor.execute("""
+      SELECT 
+        text_1, 
+        text_2, 
+        minor_index 
+      FROM question 
+      WHERE quiz_id=?
+    """, (quiz_id,)).fetchall()
     question_hashes = [
       {'text_1': q[0], 'text_2': q[1], 'minor_index': q[2]}
       for q in questions
     ]
 
     answers = cursor.execute(
-      "SELECT id, student_id, minor_index, response_1 FROM answer WHERE quiz_id=?",
+      """
+      SELECT 
+        answer.id, 
+        answer.student_id, 
+        answer.minor_index, 
+        answer.response_1,
+        feedback.score,
+        student.name
+      FROM answer 
+      LEFT JOIN feedback
+        ON feedback.answer_id = answer.id
+      LEFT JOIN student
+        ON answer.student_id = student.id
+      WHERE quiz_id=?
+      ORDER BY answer.id, feedback.id
+      """,
       (quiz_id,)
     ).fetchall()
 
     for qh in question_hashes:
-      qh['answers'] = [
-        {
+      qh['answers'] = {
+        a[0]: {
           'id': a[0],
           'student_id': a[1],
-          'response_1': a[3]
+          'response_1': a[3],
+          'score': a[4],
+          'student name': a[5],
         }
         for a in answers
         if a[2] == qh['minor_index']
-      ]
+      }
 
+    print("qh", question_hashes)
     return render_template('grade.html', teacher_uuid=teacher_uuid, student_uuid=student_uuid, questions=question_hashes)
 
   if request.method == "POST":
@@ -83,17 +107,14 @@ def take_quiz(student_uuid):
   cursor = db.cursor()
   quiz_id = cursor.execute("SELECT id FROM quiz WHERE student_uuid=?", (student_uuid,)).fetchone()[0]
   questions = cursor.execute("SELECT text_1, text_2, minor_index FROM question WHERE quiz_id=?", (quiz_id,)).fetchall()
-  print("questions:", questions)
 
-  return render_template("take_quiz.html", student_uuid=student_uuid, questions=questions)
+  quiz_headers = load_quiz_headers(cursor, quiz_id)
+
+  return render_template("take_quiz.html", student_uuid=student_uuid, questions=questions, quiz_headers=quiz_headers)
 
 @app.route("/student/quiz/<student_uuid>/submit", methods=["POST"])
 def submit_quiz(student_uuid):
-  print("submitted quiz")
-  print(request.form)
-  
   parsed_form = {}
-
   for input_name, text in request.form.items():
     form_section, question_id = input_name.split("-")
     parsed_form[form_section] = parsed_form.get(form_section, {})
@@ -127,6 +148,21 @@ def see_feedback(student_uuid, student_id):
 
   quiz_id = cursor.execute("SELECT id FROM quiz WHERE student_uuid=?", (student_uuid,)).fetchone()[0]
 
+
+  student_metadata = cursor.execute("""
+    SELECT
+      student.name, 
+      student.email
+    FROM
+      student
+    WHERE
+      student.id = ?
+  """, (student_id,)).fetchone()
+  student_metadata = {
+    "student name": student_metadata[0],
+    "student email": student_metadata[1]
+  }
+
   questions = cursor.execute(
     "SELECT text_1, text_2, minor_index FROM question WHERE quiz_id=?", 
     (quiz_id,)
@@ -137,15 +173,32 @@ def see_feedback(student_uuid, student_id):
   ]
 
   answers = cursor.execute(
-    "SELECT minor_index, response_1 FROM answer WHERE quiz_id=? AND student_id=?", 
+    """
+    SELECT 
+      answer.minor_index, 
+      answer.response_1,
+      feedback.score
+    FROM 
+      answer 
+    LEFT JOIN feedback ON feedback.answer_id = answer.id
+    WHERE quiz_id=? AND student_id=?
+    """, 
     (quiz_id, student_id)
   ).fetchall()
+  answers_hash = {answer[0]: {'response_1': answer[1], 'score': answer[2]} for answer in answers}
 
-  answers_hash = {answer[0]: answer[1] for answer in answers}
   for question in question_hashes:
-    question['response_1'] = answers_hash[question['minor_index']]
+    question['response_1'] = answers_hash[question['minor_index']]['response_1']
+    question['score'] = answers_hash[question['minor_index']]['score']
 
-  return render_template('feedback.html', questions=question_hashes)
+  quiz_headers = load_quiz_headers(cursor, quiz_id)
+
+  return render_template(
+    'feedback.html', 
+    questions=question_hashes, 
+    quiz_headers=quiz_headers,
+    student_metadata=student_metadata,
+  )
 
 @app.route("/teacher/create_quiz", methods=["POST"])
 def create_quiz():
@@ -178,8 +231,24 @@ def create_quiz():
   for idx, q in enumerate(questions):
     q["idx"] = idx
   query = f"INSERT INTO question (text_1, text_2, minor_index, question_type, quiz_id) VALUES (:text_1, :text_2, :idx, 'single_blank', {quiz_id})"
-  print("query:", query)
   cursor.executemany(query, questions)
   db.commit()
 
   return redirect(f"http://localhost:5000/teacher/quiz/{teacher_uuid}/links")
+
+def load_quiz_headers(cursor, quiz_id):
+  quiz_headers = cursor.execute("""
+    SELECT 
+      quiz.name as quiz_name, 
+      teacher.name as teacher_name, 
+      teacher.email as teacher_email  
+    FROM quiz 
+    INNER JOIN teacher ON quiz.teacher_id = teacher.id
+    WHERE quiz.id = ?
+  """, (quiz_id,)).fetchone()
+  quiz_headers = {
+    "quiz name": quiz_headers[0],
+    "teacher name": quiz_headers[1],
+    "teacher email": quiz_headers[2],
+  }
+  return quiz_headers 
