@@ -5,6 +5,7 @@
     type="text/css" 
     href="{{ url_for('static', filename='styles/styles.css')}}">
     <script src="{{ url_for('static', filename='scripts/create_quiz_scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/enabled_button.js') }}"></script>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
   </head>
   <body>
@@ -14,15 +15,15 @@
         <fieldset>
           <div>
             <label>quiz name</label>
-            <input type="text" name="header-quiz_name">
+            <input type="text" name="header-quiz_name" oninput="trackInput('index', 'header-quiz_name', this.value)">
           </div>
           <div>
             <label>teacher name</label>
-            <input type="text" name="header-teacher_name">
+            <input type="text" name="header-teacher_name" oninput="trackInput('index', 'header-teacher_name', this.value)">
           </div>
           <div>
             <label>teacher email</label>
-            <input type="text" name="header-teacher_email">
+            <input type="text" name="header-teacher_email" oninput="trackInput('index', 'header-teacher_email', this.value)">
           </div>
         </fieldset>
         <ol id="quiz-body" start="0">
@@ -31,7 +32,10 @@
         </ol>
         <div class="button-bar">
           <button type="button" onclick="addQuestion(event)">Add Question</button>
-          <button type="submit">Save Quiz</input>
+          <button type="submit" id="submit-button" disabled>
+            Save Quiz
+            <span class="disabled-tooltip">Quiz name, teacher name, and teacher email are required.</span>
+          </input>
         </div>
       </form>
     </main>
