@@ -1,12 +1,23 @@
+:root {
+  --accent-color: hsl(200, 84%, 20%);
+  --dark-accent-color: hsl(200, 100%, 5%);
+  --background-color: hsl(200, 44%, 95%);
+  --fade-border-color: hsl(200, 10%, 78%);
+}
+
 html,body {
   margin: 0;
+  background-color: var(--background-color);
 }
 
 header {
   width: 100%;
-  padding: 1em;
-  background-color: black;
-  color: white;
+  padding: 1rem;
+  background-color: white;
+  color: var(--accent-color);
+  border-bottom: 1px solid var(--fade-border-color);
+  font-size: 2rem;
+  font-weight: bolder;
 }
 
 main {
@@ -18,9 +29,10 @@ ol {
 }
 
 ol > li {
-  border: 2px solid darkgray;
+  border: 1px solid var(--fade-border-color);
   border-radius: 1em;
   padding: 1em;
+  background-color: white;
 
   list-style-position: inside;
 }
@@ -45,10 +57,11 @@ ol > li:not(:last-child) {
 }
 
 fieldset {
-  border: 1px solid black;
+  border: 1px solid var(--fade-border-color);
   width: max-content;
   padding: 0px;
   border-radius: 1em;
+  background-color: white;
 }
 
 fieldset > div {
@@ -59,15 +72,34 @@ fieldset > div {
 
 input {
   margin-inline: 1em;
+  border-width: 0px 0px 1px 0px;
+  margin-bottom: 1px;
+  border-color: var(--dark-accent-color);
+  background-color: var(--background-color);
+  padding: 4px;
+}
+
+input:focus {
+  margin-bottom: 0px;
+  border-width: 0px 0px 2px 0px;
+  border-color: var(--accent-color);
+}
+
+input:focus-visible {
+  outline: none;
 }
 
 button {
   padding: 1em;
   border-radius: 1em;
+  border: none;
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: bolder;
 }
 
 label {
-  color: rgb(30, 30, 30);
+  color: var(--dark-accent-color);
   font-size: 90%;
   font-weight: 300;
   margin-right: 1em;

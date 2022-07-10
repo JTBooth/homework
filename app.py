@@ -1,8 +1,21 @@
 from uuid import uuid4
-from flask import Flask, g, render_template, request, redirect
-import sqlite3
+from flask import Flask, g, render_template, request, redirect, url_for
+import logging, sys, sqlite3
+
+from do_email import send_quiz_link_email
 
 DATABASE_PATH = './homework.db'
+
+Log_Format = "%(levelname)s %(asctime)s - %(message)s"
+
+logging.basicConfig(filename = "logfile.log",
+                    filemode = "w",
+                    format = Log_Format, 
+                    level = logging.ERROR)
+
+logger = logging.getLogger()
+
+logger.error("alert alert")
 
 app = Flask(__name__)
 db = sqlite3.connect(DATABASE_PATH)
@@ -23,6 +36,7 @@ def close_connection(exception):
 
 @app.route("/")
 def index():
+  logger.info("rendering index")
   return render_template("index.html")
 
 @app.route("/teacher/quiz/<teacher_uuid>/grade", methods=["GET", "POST"])
@@ -139,7 +153,7 @@ def submit_quiz(student_uuid):
   )
   db.commit()
 
-  return redirect(f"http://localhost:5000/student/quiz/{student_uuid}/feedback/{student_id}")
+  return redirect(url_for("see_feedback", student_uuid=student_uuid, student_id=student_id))
 
 @app.route("/student/quiz/<student_uuid>/feedback/<student_id>", methods=["GET"])
 def see_feedback(student_uuid, student_id):
@@ -234,7 +248,9 @@ def create_quiz():
   cursor.executemany(query, questions)
   db.commit()
 
-  return redirect(f"http://localhost:5000/teacher/quiz/{teacher_uuid}/links")
+  url = url_for('quiz_links', teacher_uuid=teacher_uuid)
+  send_quiz_link_email("me@jtbooth.com", out['header']['teacher_email'], "Quiz Links", url)
+  return redirect(url)
 
 def load_quiz_headers(cursor, quiz_id):
   quiz_headers = cursor.execute("""

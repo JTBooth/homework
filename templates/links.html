@@ -10,11 +10,11 @@
     <main>
       <div>
         <label>Link to grade assignment:</label>
-        <a href="http://localhost:5000/teacher/quiz/{{teacher_uuid}}/grade">Grade Quiz</a>
+        <a href="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}">Grade Quiz</a>
       </div>
       <div>
         <label>Link to send to students:</label>
-        <a href="http://localhost:5000/student/quiz/{{student_uuid}}/take">Take Quiz</a>
+        <a href="{{ url_for('take_quiz', student_uuid=student_uuid) }}">Take Quiz</a>
       </div>
     </main>
   </body>
