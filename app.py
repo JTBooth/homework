@@ -216,6 +216,7 @@ def see_feedback(student_uuid, student_id):
 
 @app.route("/teacher/create_quiz", methods=["POST"])
 def create_quiz():
+  print("form:", request.form)
   out = {}
   for input_name, text in request.form.items():
     question_number, question_part = input_name.split('-')

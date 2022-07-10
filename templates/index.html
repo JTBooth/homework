@@ -5,6 +5,7 @@
     type="text/css" 
     href="{{ url_for('static', filename='styles/styles.css')}}">
     <script src="{{ url_for('static', filename='scripts/create_quiz_scripts.js') }}"></script>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
   </head>
   <body>
     <header>Iroha Forms - Create Quiz</header>
@@ -24,13 +25,14 @@
             <input type="text" name="header-teacher_email">
           </div>
         </fieldset>
-        <ol id="quiz-body">
+        <ol id="quiz-body" start="0">
+          <li is="example-quiz-question" left_text="どうして日本語" right_text="勉強していますか。"></li>
           <li is="quiz-question"></li>
-          <li class="unstyled-li">
-            <button type="button" onclick="addQuestion(event)">Add Question</button>
-          </li>
         </ol>
-        <button type="submit">Save Quiz</input>
+        <div class="button-bar">
+          <button type="button" onclick="addQuestion(event)">Add Question</button>
+          <button type="submit">Save Quiz</input>
+        </div>
       </form>
     </main>
   </body>
