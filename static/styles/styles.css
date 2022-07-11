@@ -170,3 +170,8 @@ label {
 *:disabled:focus > .disabled-tooltip {
   display: block;
 }
+
+table {
+  margin-top: 1rem;
+  border-spacing: 8px;
+}

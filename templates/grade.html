@@ -15,31 +15,54 @@
             {{q['text_1']}}
             <input type="text" disabled>
             {{q['text_2']}}
-
-            <ul>
-            {% for student_id, a in q['answers'].items() %}
-              <li>
-                Student {{a['student name']}}: 
-                <input type="text" value="{{a['response_1']}}" disabled>
-                <label for="a-{{a['id']}}-maru">O</label>
-                <input 
-                  type="radio" 
-                  name="a-{{a['id']}}"
-                  id="a-{{a['id']}}-maru"
-                  value="O"
-                  {% if a['score'] == "O" %}checked{% endif %}
-                >
-                <label for="a-{{a['id']}}-batsu">X</label>
-                <input 
-                  type="radio" 
-                  name="a-{{a['id']}}"
-                  id="a-{{a['id']}}-batsu"
-                  value="X"
-                  {% if a['score'] == "X" %}checked{% endif %}
-                >
-              </li>
-            {% endfor %}
-            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Answer</th>
+                  <th>Maru</th>
+                  <th>Batsu</th>
+                  <th>Correct Answer</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for student_id, a in q['answers'].items() %}
+                <tr>
+                  <td>
+                    {{a['student name']}}: 
+                  </td>
+                  <td>
+                    <input type="text" value="{{a['response_1']}}" disabled>
+                  </td>
+                  <td>
+                    <input 
+                      type="radio" 
+                      name="a-{{a['id']}}"
+                      id="a-{{a['id']}}-maru"
+                      value="O"
+                      {% if a['score'] == "O" %}checked{% endif %}
+                    >
+                  </td>
+                  <td>
+                    <input 
+                      type="radio" 
+                      name="a-{{a['id']}}"
+                      id="a-{{a['id']}}-batsu"
+                      value="X"
+                      {% if a['score'] == "X" %}checked{% endif %}
+                    >
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="a-{{a['id']}}-correct"
+                      id="a-{{a['id']}}-correct"
+                    >
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
           </li>  
         {% endfor %}
         </ol>
