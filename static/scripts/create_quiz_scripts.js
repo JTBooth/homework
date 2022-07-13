@@ -51,7 +51,6 @@ class ExampleQuizQuestion extends HTMLLIElement {
     input_2.setAttribute('disabled', true);
     questions += 1;
 
-
     this.appendChild(input_1);
     this.appendChild(student_input_placeholder);
     this.appendChild(input_2);
@@ -66,6 +65,5 @@ function addQuestion(event) {
   const quiz_body = document.getElementById("quiz-body");
 
   const qq = new QuizQuestion();
-  const last_child = quiz_body.children[quiz_body.children.length - 1];
-  quiz_body.insertBefore(qq, last_child);
+  quiz_body.appendChild(qq);
 }
