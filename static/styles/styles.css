@@ -2,6 +2,7 @@
   --hue: 200;
   --accent-color: hsl(var(--hue), 84%, 50%);
   --dark-accent-color: hsl(var(--hue), 100%, 5%);
+  --light-accent-color: hsl(var(--hue), 85%, 80%);
   --background-color: hsl(var(--hue), 44%, 95%);
   --fade-border-color: hsl(var(--hue), 10%, 78%);
   --background-disabled-color: hsl(var(--hue), 3%, 60%);
@@ -174,4 +175,64 @@ label {
 table {
   margin-top: 1rem;
   border-spacing: 8px;
+}
+
+.arrow-bar {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.arrow {
+  display: inline-block;
+  width: calc(33% - 2em);
+  padding: 0.4em;
+  height: 4em;
+  margin: 1em;
+  background-color: var(--light-accent-color);
+  box-sizing: border-box;
+  position: relative;
+}
+
+
+.arrow::after {
+  border-style: solid;
+  border-color: transparent transparent transparent var(--light-accent-color);
+  border-width: 2em 0 2em 20px;
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 0px;
+  left: 100%;
+  content: "";
+}
+
+.arrow.active::after {
+  border-color: transparent transparent transparent var(--accent-color);
+}
+
+.arrow.active {
+  background-color: var(--accent-color);
+}
+
+.arrow.upcoming {
+  background-color: var(--background-disabled-color);
+}
+
+.arrow.upcoming::after {
+  border-color: transparent transparent transparent var(--background-disabled-color);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.arrow-header {
+  font-weight: bolder;
+}
+
+.arrow-body {
+  font-weight: lighter;
+  font-size: 90%;
 }

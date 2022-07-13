@@ -9,6 +9,20 @@
   <body>
     <header>Iroha Forms - Quiz Links</header>
     <main>
+      <div class="arrow-bar">
+        <div class="arrow">Create Quiz</div>
+        <div class="arrow active">
+          <div class="stack">
+            <span class="arrow-header">
+              Share Quiz
+            </span>
+            <span class="arrow-body">
+              Send the "Take Quiz" link to your students.
+            </span>
+          </div>
+        </div>
+        <div class="arrow upcoming">Grade Quiz</div>
+      </div>
       <div>
         <label>Link to grade assignment:</label>
         <a href="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}">Grade Quiz</a>
