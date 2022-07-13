@@ -1,0 +1,16 @@
+ERROR 2022-07-13 21:25:03,600 - alert alert
+INFO 2022-07-13 21:25:03,606 -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+ERROR 2022-07-13 21:25:07,559 - Exception on /teacher/quiz/6d18912a-4ea0-41b0-8a5a-51876fbe4e03/grade [POST]
+Traceback (most recent call last):
+  File "/home/jtbooth/dev/homework/venv/lib/python3.8/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/jtbooth/dev/homework/venv/lib/python3.8/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/jtbooth/dev/homework/venv/lib/python3.8/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/jtbooth/dev/homework/venv/lib/python3.8/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/jtbooth/dev/homework/app.py", line 105, in grade_quiz
+    _, answer_id = key.split("-")
+ValueError: too many values to unpack (expected 2)
+INFO 2022-07-13 21:25:07,560 - 127.0.0.1 - - [13/Jul/2022 21:25:07] "[35m[1mPOST /teacher/quiz/6d18912a-4ea0-41b0-8a5a-51876fbe4e03/grade HTTP/1.1[0m" 500 -

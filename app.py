@@ -33,18 +33,7 @@ def grade_quiz(teacher_uuid):
     cursor = db.cursor()
     student_uuid, quiz_id = cursor.execute("SELECT student_uuid, id FROM quiz WHERE teacher_uuid=?", (teacher_uuid,)).fetchone()
 
-    questions = cursor.execute("""
-      SELECT 
-        text_1, 
-        text_2, 
-        minor_index 
-      FROM question 
-      WHERE quiz_id=?
-    """, (quiz_id,)).fetchall()
-    question_hashes = [
-      {'text_1': q[0], 'text_2': q[1], 'minor_index': q[2]}
-      for q in questions
-    ]
+    question_hashes = load_quiz_question_hashes(cursor, quiz_id)
 
     answers = cursor.execute(
       """
@@ -118,8 +107,7 @@ def take_quiz(student_uuid):
   db = get_db()
   cursor = db.cursor()
   quiz_id = cursor.execute("SELECT id FROM quiz WHERE student_uuid=?", (student_uuid,)).fetchone()[0]
-  questions = cursor.execute("SELECT text_1, text_2, minor_index FROM question WHERE quiz_id=?", (quiz_id,)).fetchall()
-
+  questions = load_quiz_questions(cursor, quiz_id)
   quiz_headers = load_quiz_headers(cursor, quiz_id)
 
   return render_template("take_quiz.html", student_uuid=student_uuid, questions=questions, quiz_headers=quiz_headers)
@@ -175,14 +163,7 @@ def see_feedback(student_uuid, student_id):
     "student email": student_metadata[1]
   }
 
-  questions = cursor.execute(
-    "SELECT text_1, text_2, minor_index FROM question WHERE quiz_id=?", 
-    (quiz_id,)
-  ).fetchall()
-  question_hashes = [
-    {'text_1': q[0], 'text_2': q[1], 'minor_index': q[2]}
-    for q in questions
-  ]
+  question_hashes = load_quiz_question_hashes(cursor, quiz_id)
 
   answers = cursor.execute(
     """
@@ -269,3 +250,22 @@ def load_quiz_headers(cursor, quiz_id):
     "teacher email": quiz_headers[2],
   }
   return quiz_headers 
+
+def load_quiz_questions(cursor, quiz_id):
+  questions = cursor.execute("""
+    SELECT 
+      text_1, 
+      text_2, 
+      minor_index 
+    FROM question 
+    WHERE quiz_id=?
+  """, (quiz_id,)).fetchall()
+  return questions
+  
+def load_quiz_question_hashes(cursor, quiz_id):
+  questions = load_quiz_questions(cursor, quiz_id)
+  question_hashes = [
+    {'text_1': q[0], 'text_2': q[1], 'minor_index': q[2]}
+    for q in questions
+  ]
+  return question_hashes
