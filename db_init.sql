@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS feedback (
   id INTEGER PRIMARY KEY,
   answer_id INTEGER,
   score TEXT,
+  correct_answer TEXT,
 
   FOREIGN KEY (answer_id) REFERENCES answer (id)
 );

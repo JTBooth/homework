@@ -45,6 +45,12 @@
               (Not yet scored)
               {% endif %}
             </div>
+            <div>
+              {% if q['correct_answer'] %}
+              <label>Correct Answer:</label>
+              {{q['correct_answer']}}
+              {% endif %}
+            </div>
           </li>
         {% endfor %}
         </ol>

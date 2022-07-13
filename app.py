@@ -1,26 +1,14 @@
 from uuid import uuid4
 from flask import Flask, g, render_template, request, redirect, url_for
-import logging, sys, sqlite3
+import sqlite3
 
 from do_email import send_quiz_link_email
 
 DATABASE_PATH = './homework.db'
 
-Log_Format = "%(levelname)s %(asctime)s - %(message)s"
-
-logging.basicConfig(filename = "logfile.log",
-                    filemode = "w",
-                    format = Log_Format, 
-                    level = logging.ERROR)
-
-logger = logging.getLogger()
-
-logger.error("alert alert")
-
 app = Flask(__name__)
 db = sqlite3.connect(DATABASE_PATH)
 db.cursor().executescript(open('db_init.sql').read())
-
 
 def get_db():
   db = getattr(g, '_database', None)
@@ -36,7 +24,6 @@ def close_connection(exception):
 
 @app.route("/")
 def index():
-  logger.info("rendering index")
   return render_template("index.html")
 
 @app.route("/teacher/quiz/<teacher_uuid>/grade", methods=["GET", "POST"])
@@ -99,12 +86,21 @@ def grade_quiz(teacher_uuid):
     db = get_db()
     cursor = db.cursor()
 
-    parsed_form = []
+    parsed_form = {}
 
     for key, val in request.form.items():
-      _, answer_id = key.split("-")
-      parsed_form.append({'answer_id': answer_id, 'score': val})
-    cursor.executemany("INSERT INTO feedback (answer_id, score) VALUES (:answer_id, :score)", parsed_form)
+      split_key = key.split("-")
+      parsed_form[split_key[1]] = parsed_form.get(split_key[1], {})
+      if len(split_key) == 2:
+        _, answer_id = split_key
+        parsed_form[answer_id]['score'] = val
+      if len(split_key) == 3:
+        _, answer_id, metadata_type = split_key
+        if metadata_type == "correct":
+          parsed_form[answer_id]['correct'] = val
+
+    parsed_arr = [[answer_id, data['score'], data['correct']] for answer_id, data in parsed_form.items()]
+    cursor.executemany("INSERT INTO feedback (answer_id, score, correct_answer) VALUES (:answer_id, :score, :correct_answer)", parsed_arr)
     db.commit()
     return redirect(request.url)
 
@@ -191,7 +187,8 @@ def see_feedback(student_uuid, student_id):
     SELECT 
       answer.minor_index, 
       answer.response_1,
-      feedback.score
+      feedback.score,
+      feedback.correct_answer
     FROM 
       answer 
     LEFT JOIN feedback ON feedback.answer_id = answer.id
@@ -199,11 +196,12 @@ def see_feedback(student_uuid, student_id):
     """, 
     (quiz_id, student_id)
   ).fetchall()
-  answers_hash = {answer[0]: {'response_1': answer[1], 'score': answer[2]} for answer in answers}
+  answers_hash = {answer[0]: {'response_1': answer[1], 'score': answer[2], 'correct_answer': answer[3]} for answer in answers}
 
   for question in question_hashes:
     question['response_1'] = answers_hash[question['minor_index']]['response_1']
     question['score'] = answers_hash[question['minor_index']]['score']
+    question['correct_answer'] = answers_hash[question['minor_index']]['correct_answer']
 
   quiz_headers = load_quiz_headers(cursor, quiz_id)
 
