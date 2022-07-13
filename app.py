@@ -79,8 +79,10 @@ def grade_quiz(teacher_uuid):
         if a[2] == qh['minor_index']
       }
 
+    quiz_headers = load_quiz_headers(cursor, quiz_id)
+
     print("qh", question_hashes)
-    return render_template('grade.html', teacher_uuid=teacher_uuid, student_uuid=student_uuid, questions=question_hashes)
+    return render_template('grade.html', teacher_uuid=teacher_uuid, student_uuid=student_uuid, questions=question_hashes, quiz_headers=quiz_headers)
 
   if request.method == "POST":
     db = get_db()

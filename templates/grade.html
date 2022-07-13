@@ -9,6 +9,20 @@
     <header>Iroha Forms - Grade Quiz</header>
     <main>
       <form action="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}" method="POST" class="quiz">
+        <fieldset>
+          <div>
+            <label>quiz name</label>
+            <span>{{quiz_headers["quiz name"]}}</span>
+          </div>
+          <div>
+            <label>teacher name</label>
+            <span>{{quiz_headers["teacher name"]}}</span>
+          </div>
+          <div>
+            <label>teacher email</label>
+            <span>{{quiz_headers["teacher email"]}}</span>
+          </div>
+        </fieldset>
         <ol>
         {% for q in questions %}
           <li>
