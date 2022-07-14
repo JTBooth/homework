@@ -13,21 +13,21 @@
         <div class="quiz-header">
           <fieldset>
             <div>
-              <label>quiz name</label>
+              <label>試験の名前</label>
               <span>{{quiz_headers["quiz name"]}}</span>
             </div>
             <div>
-              <label>teacher name</label>
+              <label>先生の名前</label>
               <span>{{quiz_headers["teacher name"]}}</span>
             </div>
           </fieldset>
           <fieldset>
             <div>
-              <label>Name</label>
+              <label>名前</label>
               <input type="text" name="header-student_name"  oninput="trackInput('take_quiz', 'header-student_name', this.value)">
             </div>
             <div>
-              <label>Email</label>
+              <label>メールアドレス</label>
               <input type="text" name="header-student_email"  oninput="trackInput('take_quiz', 'header-student_email', this.value)">
             </div>
           </fieldset>
@@ -42,7 +42,7 @@
           {% endfor %}
         </ol>
         <button type="submit" id="submit-button" disabled>
-          Submit
+          保存する
           <span class="disabled-tooltip">Quiz name, teacher name, and teacher email are required.</span>
         </button>
       </form>

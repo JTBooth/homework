@@ -14,26 +14,26 @@
       <div class="arrow-bar">
         <div class="arrow active">
           <div class="stack">
-            <span class="arrow-header">Create Quiz</span>
-            <span class="arrow-body">Add all questions before saving.</span>
+            <span class="arrow-header">試験を作る</span>
+            <span class="arrow-body">保存する前にすべての質問を入力してください。</span>
           </div>
         </div>
-        <div class="arrow upcoming">Share Quiz</div>
-        <div class="arrow upcoming">Grade Quiz</div>
-        <div class="arrow upcoming">Share Grades</div>
+        <div class="arrow upcoming">試験を共有する</div>
+        <div class="arrow upcoming">試験を採点する</div>
+        <div class="arrow upcoming">成績を共有する</div>
       </div>
       <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
         <fieldset>
           <div>
-            <label>quiz name</label>
+            <label>試験の名前</label>
             <input type="text" name="header-quiz_name" oninput="trackInput('index', 'header-quiz_name', this.value)">
           </div>
           <div>
-            <label>teacher name</label>
+            <label>先生の名前</label>
             <input type="text" name="header-teacher_name" oninput="trackInput('index', 'header-teacher_name', this.value)">
           </div>
           <div>
-            <label>teacher email</label>
+            <label>先生のメールアドレス</label>
             <input type="text" name="header-teacher_email" oninput="trackInput('index', 'header-teacher_email', this.value)">
           </div>
         </fieldset>
@@ -42,10 +42,10 @@
           <li is="quiz-question"></li>
         </ol>
         <div class="button-bar">
-          <button type="button" onclick="addQuestion(event)">Add Question</button>
+          <button type="button" onclick="addQuestion(event)">+質問</button>
           <button type="submit" id="submit-button" disabled>
-            Save Quiz
-            <span class="disabled-tooltip">Quiz name, teacher name, and teacher email are required.</span>
+            保存する
+            <span class="disabled-tooltip"></span>
           </input>
         </div>
       </form>

@@ -10,27 +10,25 @@
     <header>Iroha Forms - Quiz Links</header>
     <main>
       <div class="arrow-bar">
-        <div class="arrow">Create Quiz</div>
+        <div class="arrow">試験を作る</div>
         <div class="arrow active">
           <div class="stack">
             <span class="arrow-header">
-              Share Quiz
+              試験を共有する
             </span>
             <span class="arrow-body">
-              Send the "Take Quiz" link to your students.
+              「クイズに答える」リンクを生徒に送信します。
             </span>
           </div>
         </div>
-        <div class="arrow upcoming">Grade Quiz</div>
+        <div class="arrow upcoming">試験を採点する</div>
+        <div class="arrow upcoming">成績を共有する</div>
       </div>
       <div>
-        <label>Link to grade assignment:</label>
-        <a href="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}">Grade Quiz</a>
+        <label>このリンクを生徒に送信します</label>
+        <a href="{{ url_for('take_quiz', student_uuid=student_uuid) }}">クイズに答える</a>
       </div>
-      <div>
-        <label>Link to send to students:</label>
-        <a href="{{ url_for('take_quiz', student_uuid=student_uuid) }}">Take Quiz</a>
-      </div>
+      <a href="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}">試験を採点する</a>
     </main>
   </body>
 </html>

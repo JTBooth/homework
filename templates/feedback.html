@@ -12,11 +12,11 @@
         <div class="quiz-header">
           <fieldset>
             <div>
-              <label>quiz name</label>
+              <label>試験の名前</label>
               <span>{{quiz_headers["quiz name"]}}</span>
             </div>
             <div>
-              <label>teacher name</label>
+              <label>先生の名前</label>
               <span>{{quiz_headers["teacher name"]}}</span>
             </div>
           </fieldset>
@@ -38,16 +38,16 @@
             <input type="text" value="{{q['response_1']}}" disabled>
             {{q['text_2']}}
             <div>
-              <label>Score:</label>
+              <label>スコア</label>
               {% if q['score'] %}
               {{q['score']}}
               {% else %}
-              (Not yet scored)
+              まだ採点されていません
               {% endif %}
             </div>
             <div>
               {% if q['correct_answer'] %}
-              <label>Correct Answer:</label>
+              <label>正しい答え</label>
               {{q['correct_answer']}}
               {% endif %}
             </div>

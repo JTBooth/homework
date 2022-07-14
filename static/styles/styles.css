@@ -181,13 +181,14 @@ table {
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
+  display: flex;
 }
 
 .arrow {
   display: inline-block;
-  width: calc(25% - 3em);
-  padding: 0.4em;
-  height: 4em;
+  width: calc(25% - 1em);
+  padding: 0.5em;
+  height: 6em;
   margin: 1em;
   background-color: var(--light-accent-color);
   box-sizing: border-box;
@@ -198,7 +199,7 @@ table {
 .arrow::after {
   border-style: solid;
   border-color: transparent transparent transparent var(--light-accent-color);
-  border-width: 2em 0 2em 20px;
+  border-width: 3em 0 3em 20px;
   width: 0px;
   height: 0px;
   position: absolute;
