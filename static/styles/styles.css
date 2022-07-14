@@ -185,7 +185,7 @@ table {
 
 .arrow {
   display: inline-block;
-  width: calc(33% - 2em);
+  width: calc(25% - 3em);
   padding: 0.4em;
   height: 4em;
   margin: 1em;
