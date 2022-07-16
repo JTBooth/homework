@@ -47,10 +47,13 @@ ol > li {
   background-color: white;
 
   list-style-position: inside;
+
+  min-width: fit-content;
 }
 
 ol > li.quiz-question::marker {
   content: "問 " counter(list-item) ".";
+  font-weight: bold;
 }
 
 ol > li:not(:last-child) {
@@ -68,7 +71,17 @@ ol > li:not(:last-child) {
 }
 
 .quiz-question {
-  position: relative;
+  position: relative;;
+}
+
+.quiz-question::marker {
+  display: inline;
+}
+
+.quiz-question-body {
+  display: inline-block;
+  vertical-align: top;
+  margin-inline: 1em;
 }
 
 .example-quiz-question {
@@ -77,6 +90,7 @@ ol > li:not(:last-child) {
 
 .example-quiz-question::marker {
   content: "例題";
+  font-weight: bolder;
 }
 
 fieldset {
@@ -93,13 +107,14 @@ fieldset > div {
   margin: 1em;
 }
 
-input {
+input[type=text] {
   margin-inline: 1em;
   border-width: 0px 0px 1px 0px;
   margin-bottom: 1px;
   border-color: var(--dark-accent-color);
   background-color: var(--background-color);
   padding: 4px;
+  width: 12em;
 }
 
 input:focus {
@@ -231,9 +246,73 @@ table {
 
 .arrow-header {
   font-weight: bolder;
+  font-size: 90%;
+  white-space: nowrap;
 }
 
 .arrow-body {
   font-weight: lighter;
-  font-size: 90%;
+  font-size: 74%;
+}
+
+.blank-space {
+  width: 6rem;
+  height: 1em;
+  display: inline-block;
+  position: relative;
+  line-height: 1em;
+}
+
+.blank-space::before {
+  content: "(";
+  position: absolute;
+  left: 0px;
+}
+
+.blank-space::after {
+  content: ")";
+  position: absolute;
+  right: 0px;
+}
+
+@media only screen and (max-width: 600px) {
+  .quiz-question-body {
+    width: calc(100% - 4em);
+    min-width: 12em;
+    display: inline-block;
+  }
+
+  .quiz-question-body > * {
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .quiz-question > input {
+    width: 80%;
+  }
+
+  .quiz-question > .blank-space {
+    width: 40%;
+  }
+
+  input {
+    margin-inline: 0;
+  }
+
+  .arrow-body {
+    display: none;
+  }
+
+  .arrow-header {
+    font-size: 100%;
+    white-space: unset;
+  }
+}
+
+
+@media only screen and (max-width: 420px) {
+  .arrow-header {
+    font-size: 80%;
+    white-space: unset;
+  }
 }

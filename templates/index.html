@@ -14,13 +14,18 @@
       <div class="arrow-bar">
         <div class="arrow active">
           <div class="stack">
-            <span class="arrow-header">試験を作る</span>
+            <span class="arrow-header">穴埋め問題を作る</span>
             <span class="arrow-body">保存する前にすべての質問を入力してください。</span>
           </div>
         </div>
-        <div class="arrow upcoming">試験を共有する</div>
-        <div class="arrow upcoming">試験を採点する</div>
-        <div class="arrow upcoming">成績を共有する</div>
+        <div class="arrow upcoming">
+          <span class="arrow-header">試験を共有する</span></div>
+        <div class="arrow upcoming">
+          <span class="arrow-header">試験を採点する</span>
+        </div>
+        <div class="arrow upcoming">
+          成<span class="arrow-header">績を共有する</span>
+        </div>
       </div>
       <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
         <fieldset>
@@ -42,7 +47,7 @@
           <li is="quiz-question"></li>
         </ol>
         <div class="button-bar">
-          <button type="button" onclick="addQuestion(event)">+質問</button>
+          <button type="button" onclick="addQuestion(event)">＋質問を追加</button>
           <button type="submit" id="submit-button" disabled>
             保存する
             <span class="disabled-tooltip"></span>
