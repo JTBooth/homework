@@ -33,7 +33,7 @@ header {
 }
 
 main {
-  margin: 1em;
+  padding: 1em;
 }
 
 ol {
@@ -105,6 +105,7 @@ fieldset > div {
   display: flex;
   justify-content: space-between;
   margin: 1em;
+  align-items: baseline;
 }
 
 input[type=text] {
@@ -210,14 +211,46 @@ table {
   border-collapse: collapse;
 }
 
+table > thead > tr > th.grade-header-name {
+  width: 10%;
+}
+
+table > thead > tr > th.grade-header-answer {
+  width: 50%;
+}
+
+table > thead > tr > th.grade-header-maru {
+  width: 5%;
+}
+
+table > thead > tr > th.grade-header-batsu {
+  width: 5%;
+}
+
+table > thead > tr > th.grade-header-correct {
+  width: 30%;
+}
+
 table > * > * > * {
   border: 1px solid black;
+}
+
+td > input[type=text] {
+  width: 100%;
+  margin-inline: 0px;
+}
+
+td > input[type=radio] {
+  width: 100%;
+  margin: 0;
+  text-align: center;
 }
 
 .arrow-bar {
   max-width: 800px;
   width: 100%;
-  margin: 0 auto;
+  margin-bottom: 1em;
+  margin-inline: auto;
   display: flex;
 }
 
@@ -226,12 +259,11 @@ table > * > * > * {
   width: calc(25% - 1em);
   padding: 0.5em;
   height: 6em;
-  margin: 1em;
   background-color: var(--light-accent-color);
   box-sizing: border-box;
   position: relative;
+  margin-inline: 1em;
 }
-
 
 .arrow::after {
   border-style: solid;

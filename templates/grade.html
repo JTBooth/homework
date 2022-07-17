@@ -52,21 +52,21 @@
             <table>
               <thead>
                 <tr>
-                  <th>名前</th>
-                  <th>答え</th>
-                  <th>正解</th>
-                  <th>不正解</th>
-                  <th>正しい答え</th>
+                  <th class="grade-header-name">名前</th>
+                  <th class="grade-header-answer">答え</th>
+                  <th class="grade-header-maru">正解</th>
+                  <th class="grade-header-batsu">不正解</th>
+                  <th class="grade-header-correct">正しい答え</th>
                 </tr>
               </thead>
               <tbody>
               {% for student_id, a in q['answers'].items() %}
                 <tr>
                   <td>
-                    {{a['student name']}}: 
+                    {{a['student name']}} 
                   </td>
                   <td>
-                    <span>{{a['response_1']}}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                    <span>{{a['response_1']}}</span>
                   </td>
                   <td>
                     <input 
