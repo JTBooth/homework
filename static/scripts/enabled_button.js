@@ -1,26 +1,26 @@
-required_fields = {
-  'header-quiz_name': false,
-  'header-teacher_name': false,
-  'header-teacher_email': false
-};
+required_fields = [
+  'header-quiz_name',
+  'header-teacher_name',
+  'header-teacher_email'
+];
 
-take_quiz = {
-  'header-student_name': false,
-  'header-student_email': false,
-};
+take_quiz = [
+  'header-student_name',
+  'header-student_email',
+];
 
-hash_of_hashes = {
+hash_of_fieldsets = {
   'index': required_fields,
   'take_quiz': take_quiz
 };
 
-function trackInput(hash_name, field_name, value) {
-  let hash = hash_of_hashes[hash_name];
-  hash[field_name] = !!value;
-
-  if (Object.values(hash).every(x => x === true)) {
-    document.getElementById('submit-button').disabled = false;
-  } else {
-    document.getElementById('submit-button').disabled = true;
-  }
+function trackInput(fieldset) {
+  let fields = hash_of_fieldsets[fieldset];
+  let disabled = false;
+  fields.forEach(field_name => {
+    if (!document.getElementById(field_name).value) {
+      disabled = true;
+    }
+  })
+  document.getElementById('submit-button').disabled = disabled;
 }
