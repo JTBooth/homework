@@ -1,63 +1,51 @@
-<!DOCTYPE html lang="jp">
-<html>
-  <head>
-    <link rel="stylesheet" 
-    type="text/css" 
-    href="{{ url_for('static', filename='styles/styles.css')}}">
-    <title>いろは</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='iroha_favicon.ico')}}">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
-  </head>
-  <body>
-    <header>Iroha Forms - Quiz Feedback</header>
-    <main>
-      <div class="quiz">
-        <div class="quiz-header">
-          <fieldset>
-            <div>
-              <label>試験の名前</label>
-              <span>{{quiz_headers["quiz name"]}}</span>
-            </div>
-            <div>
-              <label>先生の名前</label>
-              <span>{{quiz_headers["teacher name"]}}</span>
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label>student name</label>
-              <span>{{student_metadata["student name"]}}</span>
-            </div>
-            <div>
-              <label>student email</label>
-              <span>{{student_metadata["student email"]}}</span>
-            </div>
-          </fieldset>
-        </div>
-        <ol>
-        {% for q in questions %}
-          <li class="quiz-question">
-            {{q['text_1']}}
-            <input type="text" value="{{q['response_1']}}" disabled>
-            {{q['text_2']}}
-            <div>
-              <label>スコア</label>
-              {% if q['score'] %}
-              {{q['score']}}
-              {% else %}
-              まだ採点されていません
-              {% endif %}
-            </div>
-            <div>
-              {% if q['correct_answer'] %}
-              <label>正しい答え</label>
-              {{q['correct_answer']}}
-              {% endif %}
-            </div>
-          </li>
-        {% endfor %}
-        </ol>
+{% extends "base.html" %}
+{% block title %}Feedback{% endblock %}
+{% block content %}
+<div class="quiz">
+  <div class="quiz-header">
+    <fieldset>
+      <div>
+        <label>試験の名前</label>
+        <span>{{quiz_headers["quiz name"]}}</span>
       </div>
-    </main>
-  </body>
-</html>
+      <div>
+        <label>先生の名前</label>
+        <span>{{quiz_headers["teacher name"]}}</span>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div>
+        <label>student name</label>
+        <span>{{student_metadata["student name"]}}</span>
+      </div>
+      <div>
+        <label>student email</label>
+        <span>{{student_metadata["student email"]}}</span>
+      </div>
+    </fieldset>
+  </div>
+  <ol>
+  {% for q in questions %}
+    <li class="quiz-question">
+      {{q['text_1']}}
+      <input type="text" value="{{q['response_1']}}" disabled>
+      {{q['text_2']}}
+      <div>
+        <label>スコア</label>
+        {% if q['score'] %}
+        {{q['score']}}
+        {% else %}
+        まだ採点されていません
+        {% endif %}
+      </div>
+      <div>
+        {% if q['correct_answer'] %}
+        <label>正しい答え</label>
+        {{q['correct_answer']}}
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+  </ol>
+</div>
+{% endblock %}

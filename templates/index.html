@@ -1,61 +1,47 @@
-<!DOCTYPE html lang="jp">
-<html>
-  <head>
-    <link rel="stylesheet" 
-    type="text/css" 
-    href="{{ url_for('static', filename='styles/styles.css')}}">
-    <title>いろは</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='iroha_favicon.ico')}}">
-    <script src="{{ url_for('static', filename='scripts/create_quiz_scripts.js') }}"></script>
-    <script src="{{ url_for('static', filename='scripts/enabled_button.js') }}"></script>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
-  </head>
-  <body>
-    <header>Iroha Forms - Create Quiz</header>
-    <main>
-      <div class="arrow-bar">
-        <div class="arrow active">
-          <div class="stack">
-            <span class="arrow-header">穴埋め問題を作る</span>
-            <span class="arrow-body">保存する前にすべての質問を入力してください。</span>
-          </div>
-        </div>
-        <div class="arrow upcoming">
-          <span class="arrow-header">試験を共有する</span></div>
-        <div class="arrow upcoming">
-          <span class="arrow-header">試験を採点する</span>
-        </div>
-        <div class="arrow upcoming">
-          <span class="arrow-header">成績を共有する</span>
-        </div>
+{% extends "base.html" %}
+{% block title %}Create Form{% endblock %}
+{% block content %}
+  <div class="arrow-bar">
+    <div class="arrow active">
+      <div class="stack">
+        <span class="arrow-header">穴埋め問題を作る</span>
+        <span class="arrow-body">保存する前にすべての質問を入力してください。</span>
       </div>
-      <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
-        <fieldset>
-          <div>
-            <label>試験の名前</label>
-            <input type="text" id="header-quiz_name" name="header-quiz_name" oninput="trackInput('index', 'header-quiz_name', this.value)">
-          </div>
-          <div>
-            <label>先生の名前</label>
-            <input type="text" id="header-teacher_name" name="header-teacher_name" oninput="trackInput('index', 'header-teacher_name', this.value)">
-          </div>
-          <div>
-            <label>先生のメールアドレス</label>
-            <input type="text" id="header-teacher_email" name="header-teacher_email" oninput="trackInput('index', 'header-teacher_email', this.value)">
-          </div>
-        </fieldset>
-        <ol id="quiz-body" start="0">
-          <li is="example-quiz-question" left_text="どうして日本語" right_text="勉強していますか。"></li>
-          <li is="quiz-question"></li>
-        </ol>
-        <div class="button-bar">
-          <button type="button" onclick="addQuestion(event)">＋質問を追加</button>
-          <button type="submit" id="submit-button" disabled>
-            保存する
-            <span class="disabled-tooltip"></span>
-          </input>
-        </div>
-      </form>
-    </main>
-  </body>
-</html>
+    </div>
+    <div class="arrow upcoming">
+      <span class="arrow-header">試験を共有する</span></div>
+    <div class="arrow upcoming">
+      <span class="arrow-header">試験を採点する</span>
+    </div>
+    <div class="arrow upcoming">
+      <span class="arrow-header">成績を共有する</span>
+    </div>
+  </div>
+  <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
+    <fieldset>
+      <div>
+        <label>試験の名前</label>
+        <input type="text" id="header-quiz_name" name="header-quiz_name" oninput="trackInput('index', 'header-quiz_name', this.value)">
+      </div>
+      <div>
+        <label>先生の名前</label>
+        <input type="text" id="header-teacher_name" name="header-teacher_name" oninput="trackInput('index', 'header-teacher_name', this.value)">
+      </div>
+      <div>
+        <label>先生のメールアドレス</label>
+        <input type="text" id="header-teacher_email" name="header-teacher_email" oninput="trackInput('index', 'header-teacher_email', this.value)">
+      </div>
+    </fieldset>
+    <ol id="quiz-body" start="0">
+      <li is="example-quiz-question" left_text="どうして日本語" right_text="勉強していますか。"></li>
+      <li is="quiz-question"></li>
+    </ol>
+    <div class="button-bar">
+      <button type="button" onclick="addQuestion(event)">＋質問を追加</button>
+      <button type="submit" id="submit-button" disabled>
+        保存する
+        <span class="disabled-tooltip"></span>
+      </input>
+    </div>
+  </form>
+{% endblock %} 

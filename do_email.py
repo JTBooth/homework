@@ -14,6 +14,7 @@ def send_quiz_link_email(from_addr, to_addr, subject, url):
             This is the link to your quiz:
             {url}
           </body>
-        </html>"""
+        </html>""",
+      MessageStream="outbound"
     )
     print("response:", response)

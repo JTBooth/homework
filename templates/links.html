@@ -1,45 +1,33 @@
-<!DOCTYPE html lang="jp">
-<html>
-  <head>
-    <link rel="stylesheet" 
-    type="text/css" 
-    href="{{ url_for('static', filename='styles/styles.css')}}">
-    <title>いろは</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='iroha_favicon.ico')}}">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
-  </head>
-  <body>
-    <header>Iroha Forms - Quiz Links</header>
-    <main>
-      <div class="arrow-bar">
-        <div class="arrow">
-          <span class="arrow-header">穴埋め問題を作る</span>
-        </div>
-        <div class="arrow active">
-          <div class="stack">
-            <span class="arrow-header">
-              試験を共有する
-            </span>
-            <span class="arrow-body">
-              「クイズに答える」リンクを生徒に送信します。
-            </span>
-          </div>
-        </div>
-        <div class="arrow upcoming">
-          <span class="arrow-header">試験を採点する</span>
-        </div>
-        <div class="arrow upcoming">
-          <span class="arrow-header">成績を共有する</span>
-        </div>
-      </div>
-      <div class="linkbox">
-        <label>下記の課題のリンクを生徒にメール・ラインなどで共有してください。</label>
-        <a href="{{ url_for('take_quiz', student_uuid=student_uuid) }}">http://irohaforms.com{{ url_for('take_quiz', student_uuid=student_uuid) }}</a>
-      </div>
-      <div class="linkbox">
-        <label>生徒が回答したあと、下記のリンクから採点してください。</label>
-        <a href="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}">http://irohaforms.com{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}</a>
-      </div>
-    </main>
-  </body>
-</html>
+{% extends "base.html" %}
+{% block title %}Quiz Links{% endblock %}
+{% block content %}
+<div class="arrow-bar">
+  <div class="arrow">
+    <span class="arrow-header">穴埋め問題を作る</span>
+  </div>
+  <div class="arrow active">
+    <div class="stack">
+      <span class="arrow-header">
+        試験を共有する
+      </span>
+      <span class="arrow-body">
+        「クイズに答える」リンクを生徒に送信します。
+      </span>
+    </div>
+  </div>
+  <div class="arrow upcoming">
+    <span class="arrow-header">試験を採点する</span>
+  </div>
+  <div class="arrow upcoming">
+    <span class="arrow-header">成績を共有する</span>
+  </div>
+</div>
+<div class="linkbox">
+  <label>下記の課題のリンクを生徒にメール・ラインなどで共有してください。</label>
+  <a href="{{ url_for('take_quiz', student_uuid=student_uuid) }}">http://irohaforms.com{{ url_for('take_quiz', student_uuid=student_uuid) }}</a>
+</div>
+<div class="linkbox">
+  <label>生徒が回答したあと、下記のリンクから採点してください。</label>
+  <a href="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}">http://irohaforms.com{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}</a>
+</div>
+{% endblock %}

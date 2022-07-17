@@ -1,107 +1,95 @@
-<!DOCTYPE html lang="jp">
-<html>
-  <head>
-    <link rel="stylesheet" 
-    type="text/css" 
-    href="{{ url_for('static', filename='styles/styles.css')}}">
-    <title>いろは</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='iroha_favicon.ico')}}">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
-  </head>
-  <body>
-    <header>Iroha Forms - Grade Quiz</header>
-    <main>
-      <div class="arrow-bar">
-        <div class="arrow">
-          <span class="arrow-header">穴埋め問題を作る</span>
-        </div>
-        <div class="arrow">
-          <span class="arrow-header">試験を共有する</span>
-        </div>
-        <div class="arrow active">
-          <div class="stack">
-            <span class="arrow-header">試験を採点する</span>
-            <span class="arrow-body">生徒がクイズに答えたら、ここで採点します。</span>
-          </div>
-        </div>
-        <div class="arrow upcoming">
-          <span class="arrow-header">成績を共有する</span>
-        </div>
-      </div>
-      <form action="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}" method="POST" class="quiz">
-        <fieldset>
-          <div>
-            <label>試験の名前</label>
-            <span>{{quiz_headers["quiz name"]}}</span>
-          </div>
-          <div>
-            <label>先生の名前</label>
-            <span>{{quiz_headers["teacher name"]}}</span>
-          </div>
-          <div>
-            <label>先生のメールアドレス</label>
-            <span>{{quiz_headers["teacher email"]}}</span>
-          </div>
-        </fieldset>
-        <ol>
-        {% for q in questions %}
-          <li class="quiz-question">
-            {{q['text_1']}}
-            <span class="blank-space"></span>
-            {{q['text_2']}}
-            <table>
-              <thead>
-                <tr>
-                  <th class="grade-header-name">名前</th>
-                  <th class="grade-header-answer">答え</th>
-                  <th class="grade-header-maru">正解</th>
-                  <th class="grade-header-batsu">不正解</th>
-                  <th class="grade-header-correct">正しい答え</th>
-                </tr>
-              </thead>
-              <tbody>
-              {% for student_id, a in q['answers'].items() %}
-                <tr>
-                  <td>
-                    {{a['student name']}} 
-                  </td>
-                  <td>
-                    <span>{{a['response_1']}}</span>
-                  </td>
-                  <td>
-                    <input 
-                      type="radio" 
-                      name="a-{{a['id']}}"
-                      id="a-{{a['id']}}-maru"
-                      value="O"
-                      {% if a['score'] == "O" %}checked{% endif %}
-                    >
-                  </td>
-                  <td>
-                    <input 
-                      type="radio" 
-                      name="a-{{a['id']}}"
-                      id="a-{{a['id']}}-batsu"
-                      value="X"
-                      {% if a['score'] == "X" %}checked{% endif %}
-                    >
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="a-{{a['id']}}-correct"
-                      id="a-{{a['id']}}-correct"
-                    >
-                  </td>
-                </tr>
-              {% endfor %}
-              </tbody>
-            </table>
-          </li>  
+{% extends "base.html" %}
+{% block title %}Grade Quiz{% endblock %}
+{% block content %}
+<div class="arrow-bar">
+  <div class="arrow">
+    <span class="arrow-header">穴埋め問題を作る</span>
+  </div>
+  <div class="arrow">
+    <span class="arrow-header">試験を共有する</span>
+  </div>
+  <div class="arrow active">
+    <div class="stack">
+      <span class="arrow-header">試験を採点する</span>
+      <span class="arrow-body">生徒がクイズに答えたら、ここで採点します。</span>
+    </div>
+  </div>
+  <div class="arrow upcoming">
+    <span class="arrow-header">成績を共有する</span>
+  </div>
+</div>
+<form action="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}" method="POST" class="quiz">
+  <fieldset>
+    <div>
+      <label>試験の名前</label>
+      <span>{{quiz_headers["quiz name"]}}</span>
+    </div>
+    <div>
+      <label>先生の名前</label>
+      <span>{{quiz_headers["teacher name"]}}</span>
+    </div>
+    <div>
+      <label>先生のメールアドレス</label>
+      <span>{{quiz_headers["teacher email"]}}</span>
+    </div>
+  </fieldset>
+  <ol>
+  {% for q in questions %}
+    <li class="quiz-question">
+      {{q['text_1']}}
+      <span class="blank-space"></span>
+      {{q['text_2']}}
+      <table>
+        <thead>
+          <tr>
+            <th class="grade-header-name">名前</th>
+            <th class="grade-header-answer">答え</th>
+            <th class="grade-header-maru">正解</th>
+            <th class="grade-header-batsu">不正解</th>
+            <th class="grade-header-correct">正しい答え</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for student_id, a in q['answers'].items() %}
+          <tr>
+            <td>
+              {{a['student name']}} 
+            </td>
+            <td>
+              <span>{{a['response_1']}}</span>
+            </td>
+            <td>
+              <input 
+                type="radio" 
+                name="a-{{a['id']}}"
+                id="a-{{a['id']}}-maru"
+                value="O"
+                {% if a['score'] == "O" %}checked{% endif %}
+              >
+            </td>
+            <td>
+              <input 
+                type="radio" 
+                name="a-{{a['id']}}"
+                id="a-{{a['id']}}-batsu"
+                value="X"
+                {% if a['score'] == "X" %}checked{% endif %}
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                name="a-{{a['id']}}-correct"
+                id="a-{{a['id']}}-correct"
+              >
+            </td>
+          </tr>
         {% endfor %}
-        </ol>
-        <button type="submit">Submit</button>
-      </form>
-    </main>
-  </body>
-</html>
+        </tbody>
+      </table>
+    </li>  
+  {% endfor %}
+  </ol>
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}
