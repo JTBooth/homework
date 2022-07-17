@@ -4,6 +4,8 @@
     <link rel="stylesheet" 
     type="text/css" 
     href="{{ url_for('static', filename='styles/styles.css')}}">
+    <title>いろは</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='iroha_favicon.ico')}}">
     <script src="{{ url_for('static', filename='scripts/enabled_button.js') }}"></script>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
   </head>
@@ -36,15 +38,17 @@
         <ol>
           {% for q in questions %}
           <li class="quiz-question">
-            {{q[0]}}
-            <input type="text" name="question-{{q[2]}}"> 
-            {{q[1]}}
+            <div class="quiz-question-body">
+              {{q[0]}}
+              <input type="text" name="question-{{q[2]}}"> 
+              {{q[1]}}
+            </div>
           </li>
           {% endfor %}
         </ol>
         <button type="submit" id="submit-button" disabled>
           保存する
-          <span class="disabled-tooltip">Quiz name, teacher name, and teacher email are required.</span>
+          <span class="disabled-tooltip">Name and email are required.</span>
         </button>
       </form>
     </main>

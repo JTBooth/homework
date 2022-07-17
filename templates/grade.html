@@ -4,6 +4,8 @@
     <link rel="stylesheet" 
     type="text/css" 
     href="{{ url_for('static', filename='styles/styles.css')}}">
+    <title>いろは</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='iroha_favicon.ico')}}">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
   </head>
   <body>
@@ -13,7 +15,7 @@
         <div class="arrow">
           <span class="arrow-header">穴埋め問題を作る</span>
         </div>
-        <div class="arrow upcoming">
+        <div class="arrow">
           <span class="arrow-header">試験を共有する</span>
         </div>
         <div class="arrow active">
@@ -43,9 +45,9 @@
         </fieldset>
         <ol>
         {% for q in questions %}
-          <li>
+          <li class="quiz-question">
             {{q['text_1']}}
-            <input type="text" disabled>
+            <span class="blank-space"></span>
             {{q['text_2']}}
             <table>
               <thead>
@@ -64,7 +66,7 @@
                     {{a['student name']}}: 
                   </td>
                   <td>
-                    <input type="text" value="{{a['response_1']}}" disabled>
+                    <span>{{a['response_1']}}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
                   </td>
                   <td>
                     <input 
