@@ -1,34 +1,113 @@
 {% extends "base.html" %}
-{% block title %}Create Form{% endblock %}
+{% block title %}Welcome{% endblock %}
 {% block content %}
-  {% with stage=1 %}
-  {% include "arrow_bar.html" %}
-  {% endwith %}
-  <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
-    <fieldset>
-      <div>
-        <label>試験の名前</label>
-        <input type="text" id="header-quiz_name" name="header-quiz_name" oninput="trackInput('index', 'header-quiz_name', this.value)">
-      </div>
-      <div>
-        <label>先生の名前</label>
-        <input type="text" id="header-teacher_name" name="header-teacher_name" oninput="trackInput('index', 'header-teacher_name', this.value)">
-      </div>
-      <div>
-        <label>先生のメールアドレス</label>
-        <input type="text" id="header-teacher_email" name="header-teacher_email" oninput="trackInput('index', 'header-teacher_email', this.value)">
-      </div>
-    </fieldset>
-    <ol id="quiz-body" start="0">
-      <li is="example-quiz-question" left_text="どうして日本語" right_text="勉強していますか。"></li>
-      <li is="quiz-question"></li>
-    </ol>
-    <div class="button-bar">
-      <button type="button" onclick="addQuestion(event)">＋質問を追加</button>
-      <button type="submit" id="submit-button" disabled>
-        保存する
-        <span class="disabled-tooltip"></span>
-      </input>
+<h1>Simple Online Quizzes</h1>
+<p>
+  You can create a quiz in minutes. Send a single link
+  to all your students, grade their responses from your
+  phone, and send the results back by email automatically.
+</p>
+<p>
+  <a href="{{ url_for('create') }}">Click Here to get started.</a>
+</p>
+<h1>How it works</h1>
+This is a step by step description of what you and your students will see while making, taking, and grading a quiz.
+<h2>Create the Quiz</h2>
+Fill-in-the-blank questions have text before and after the blank. Create the question by filling in those text boxes.
+<ol>
+  <li class="quiz-question">
+    <div class="quiz-question-body">
+      <input type="text" value="どうして日本語" disabled>
+      <span class="blank-space"></span>
+      <input type="text" value="勉強していますか。" disabled>
     </div>
-  </form>
-{% endblock %} 
+  </li>
+</ol>
+<h2>Share with your Students</h2>
+Once you're done, we'll give you a link. Send it to all your students. They'll see a form like this:
+<fieldset>
+  <div>
+    <label>名前</label>
+    <input type="text" id="header-student_name" name="header-student_name" value="JT Booth" disabled>
+  </div>
+  <div>
+    <label>メールアドレス</label>
+    <input type="text" id="header-student_email" name="header-student_email" value="jtbooth1@gmail.com" disabled>
+  </div>
+</fieldset>
+<ol>
+  <li class="quiz-question">
+    <div class="quiz-question-body">
+      I am going
+      <input type="text" value="to" disabled>
+      my cousin's birthday party.
+    </div>
+  </li>
+</ol>
+After they take the quiz, they'll get a link to their results page, which will be initially blank.
+<h2>Grade the Quiz</h2>
+Once your students have taken the quiz, you'll see a form like this.
+<ol>
+  <li class="quiz-question">
+    I am going
+    <span class="blank-space"></span>
+    my cousin's birthday party.
+    <table>
+      <thead>
+        <tr>
+          <th class="grade-header-name">名前</th>
+          <th class="grade-header-answer">答え</th>
+          <th class="grade-header-maru">正解</th>
+          <th class="grade-header-batsu">不正解</th>
+          <th class="grade-header-correct">正しい答え</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> JT </td>
+          <td> <span>to</span> </td>
+          <td>
+            <input type="radio" value="O" checked disabled>
+          </td>
+          <td>
+            <input type="radio" value="X" disabled>
+          </td>
+          <td>
+            <input type="text" disabled>
+          </td>
+        </tr>
+        <tr>
+          <td> Chisa </td>
+          <td> <span>at</span> </td>
+          <td>
+            <input type="radio" value="O" disabled>
+          </td>
+          <td>
+            <input type="radio" value="X" checked disabled>
+          </td>
+          <td>
+            <input type="text" value="to" disabled>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>  
+</ol>
+<h2>Students See Feedback</h2>
+Once you've graded the quiz, your students can see the feedback.
+<ol>
+  <li class="quiz-question">
+    I am going
+    <input type="text" value="at" disabled>
+    my cousin's birthday party.
+    <div>
+      <label>スコア</label>
+      X
+    </div>
+    <div>
+      <label>正しい答え</label>
+      to
+    </div>
+  </li>
+</ol>
+{% endblock %}

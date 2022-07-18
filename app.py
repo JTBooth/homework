@@ -24,7 +24,11 @@ def close_connection(exception):
 
 @app.route("/")
 def index():
-  return render_template("index.html")
+  return render_template('index.html')
+
+@app.route("/create")
+def create():
+  return render_template("create.html")
 
 @app.route("/teacher/quiz/<teacher_uuid>/grade", methods=["GET", "POST"])
 def grade_quiz(teacher_uuid):

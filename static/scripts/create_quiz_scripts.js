@@ -23,12 +23,15 @@ class QuizQuestion extends HTMLLIElement {
     body_div.appendChild(input_2);
     this.appendChild(body_div);
 
-    const delete_button = document.createElement('button');
-    delete_button.setAttribute("class", "delete-button");
-    delete_button.onclick = () => this.remove();
-    delete_button.textContent = "✖";
 
-    this.appendChild(delete_button);
+    if (!this.getAttribute('skip-delete')) {
+      const delete_button = document.createElement('button');
+      delete_button.setAttribute("class", "delete-button");
+      delete_button.onclick = () => this.remove();
+      delete_button.textContent = "✖";
+      this.appendChild(delete_button);
+    }
+
     this.className = "quiz-question";
   }
 }
