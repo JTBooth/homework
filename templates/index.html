@@ -1,22 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Create Form{% endblock %}
 {% block content %}
-  <div class="arrow-bar">
-    <div class="arrow active">
-      <div class="stack">
-        <span class="arrow-header">穴埋め問題を作る</span>
-        <span class="arrow-body">保存する前にすべての質問を入力してください。</span>
-      </div>
-    </div>
-    <div class="arrow upcoming">
-      <span class="arrow-header">試験を共有する</span></div>
-    <div class="arrow upcoming">
-      <span class="arrow-header">試験を採点する</span>
-    </div>
-    <div class="arrow upcoming">
-      <span class="arrow-header">成績を共有する</span>
-    </div>
-  </div>
+  {% with stage=1 %}
+  {% include "arrow_bar.html" %}
+  {% endwith %}
   <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
     <fieldset>
       <div>

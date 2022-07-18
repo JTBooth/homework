@@ -93,7 +93,11 @@ def grade_quiz(teacher_uuid):
     parsed_arr = [[answer_id, data['score'], data['correct']] for answer_id, data in parsed_form.items()]
     cursor.executemany("INSERT INTO feedback (answer_id, score, correct_answer) VALUES (:answer_id, :score, :correct_answer)", parsed_arr)
     db.commit()
-    return redirect(request.url)
+    return redirect(url_for('teacher_finished', teacher_uuid=teacher_uuid))
+
+@app.route("/teacher/quiz/<teacher_uuid>/finished")
+def teacher_finished(teacher_uuid):
+  return render_template('finished.html')
 
 @app.route("/teacher/quiz/<teacher_uuid>/links")
 def quiz_links(teacher_uuid):
