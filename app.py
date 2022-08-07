@@ -1,8 +1,9 @@
 from uuid import uuid4
 from flask import Flask, g, render_template, request, redirect, url_for
+from email.utils import parseaddr
 import sqlite3
 
-from do_email import send_quiz_link_email
+from do_email import send_quiz_link_email, send_feedback_link_email
 
 DATABASE_PATH = './homework.db'
 
@@ -118,6 +119,7 @@ def take_quiz(student_uuid):
   questions = load_quiz_questions(cursor, quiz_id)
   quiz_headers = load_quiz_headers(cursor, quiz_id)
 
+  
   return render_template("take_quiz.html", student_uuid=student_uuid, questions=questions, quiz_headers=quiz_headers)
 
 @app.route("/student/quiz/<student_uuid>/submit", methods=["POST"])
@@ -147,6 +149,9 @@ def submit_quiz(student_uuid):
   )
   db.commit()
 
+  url = url_for("see_feedback", student_uuid=student_uuid, student_id=student_id, _external=True)
+  # BOOKMARK
+  send_feedback_link_email('chisa@irohaforms.com', parsed_form['header']['student_email'], 'Quiz Feedback', url)
   return redirect(url_for("see_feedback", student_uuid=student_uuid, student_id=student_id))
 
 @app.route("/student/quiz/<student_uuid>/feedback/<student_id>", methods=["GET"])
@@ -238,8 +243,8 @@ def create_quiz():
   cursor.executemany(query, questions)
   db.commit()
 
-  url = url_for('quiz_links', teacher_uuid=teacher_uuid)
-  send_quiz_link_email("me@jtbooth.com", out['header']['teacher_email'], "Quiz Links", url)
+  url = url_for('quiz_links', teacher_uuid=teacher_uuid, _external=True)
+  send_quiz_link_email("chisa@irohaforms.com", out['header']['teacher_email'], "Quiz Links", url)
   return redirect(url)
 
 def load_quiz_headers(cursor, quiz_id):
