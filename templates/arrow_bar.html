@@ -1,0 +1,16 @@
+<div class="arrow-bar">
+  <div class="arrow {{ 'active' if stage == 1 else ''}}">
+    <div class="stack">
+      <span class="arrow-header">穴埋め問題を作る</span>
+      <span class="arrow-body">保存する前にすべての質問を入力してください。</span>
+    </div>
+  </div>
+  <div class="arrow {{'active' if stage == 2 else 'upcoming' if stage < 2 else ''}}">
+    <span class="arrow-header">試験を共有する</span></div>
+  <div class="arrow {{'active' if stage == 3 else 'upcoming' if stage < 3 else ''}}">
+    <span class="arrow-header">試験を採点する</span>
+  </div>
+  <div class="arrow {{'active' if stage == 4 else 'upcoming' if stage < 4 else ''}}">
+    <span class="arrow-header">成績を共有する</span>
+  </div>
+</div>

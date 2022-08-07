@@ -1,0 +1,20 @@
+<!DOCTYPE html lang="jp">
+<html>
+  <head>
+    <link rel="stylesheet" 
+    type="text/css" 
+    href="{{ url_for('static', filename='styles/styles.css')}}">
+    <title>いろは</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='iroha_favicon.ico')}}">
+    <script src="{{ url_for('static', filename='scripts/create_quiz_scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/enabled_button.js') }}"></script>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1">
+  </head>
+  <body>
+    <header>Iroha Forms - {% block title %}{% endblock %}</header>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>
