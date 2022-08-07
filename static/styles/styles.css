@@ -367,3 +367,14 @@ td > input[type=radio] {
     white-space: unset;
   }
 }
+
+.mega-button {
+  background-color: orange;
+  color: black;
+  font-size: larger;
+}
+
+.mega-button > * {
+  color: black;
+  text-decoration: none;
+}

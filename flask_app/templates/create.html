@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Create Form{% endblock %}
+{% block content %}
+  {% with stage=1 %}
+  {% include "arrow_bar.html" %}
+  {% endwith %}
+  <form action="{{ url_for('page.create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
+    <fieldset>
+      <div>
+        <label>試験の名前</label>
+        <input type="text" id="header-quiz_name" name="header-quiz_name" oninput="trackInput('index', this.name, this.value, notEmptyValidator)">
+      </div>
+      <div>
+        <label>先生の名前</label>
+        <input type="text" id="header-teacher_name" name="header-teacher_name" oninput="trackInput('index', this.name, this.value, notEmptyValidator)">
+      </div>
+      <div>
+        <label>先生のメールアドレス</label>
+        <input type="text" id="header-teacher_email" name="header-teacher_email" oninput="trackInput('index', this.name, this.value, emailValidator)">
+      </div>
+    </fieldset>
+    <ol id="quiz-body" start="0">
+      <li is="example-quiz-question" left_text="どうして日本語" right_text="勉強していますか。"></li>
+      <li is="quiz-question"></li>
+    </ol>
+    <div class="button-bar">
+      <button type="button" onclick="addQuestion(event)">＋質問を追加</button>
+      <button type="submit" id="submit-button" class="mega-button" disabled>
+        保存する
+        <span class="disabled-tooltip">Quiz name, teacher name and teacher email are required</span>
+      </input>
+    </div>
+  </form>
+{% endblock %} 

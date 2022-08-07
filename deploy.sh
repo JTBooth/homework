@@ -1,1 +1,1 @@
-rsync -av --exclude='.git' --exclude='.gitignore' --exclude='deploy.sh' --exclude='*db' --exclude='__pycache__' --exclude='__pycache__/*' --exclude='venv' --exclude='venv/*' /home/jtbooth/dev/homework/* jt@jtbooth.com:/home/jt/iroha
+rsync -av --exclude='.git' --exclude='.gitignore' --exclude='deploy.sh' --exclude='*db' --exclude='__pycache__' --exclude='__pycache__/*' --exclude='venv' --exclude='venv/*' --exclude='test' --exclude='test/*' /home/jtbooth/dev/homework/* jt@jtbooth.com:/home/jt/iroha

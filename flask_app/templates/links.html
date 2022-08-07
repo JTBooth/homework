@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Quiz Links{% endblock %}
+{% block content %}
+
+{% with stage=2 %}
+{% include "arrow_bar.html" %}
+{% endwith %}
+<div class="linkbox">
+  <label>下記の課題のリンクを生徒にメール・ラインなどで共有してください。</label>
+  <a href="{{ url_for('page.take_quiz', student_uuid=student_uuid) }}">http://irohaforms.com{{ url_for('page.take_quiz', student_uuid=student_uuid) }}</a>
+</div>
+<div class="linkbox">
+  <label>生徒が回答したあと、下記のリンクから採点してください。</label>
+  <a href="{{ url_for('page.grade_quiz', teacher_uuid=teacher_uuid) }}">http://irohaforms.com{{ url_for('page.grade_quiz', teacher_uuid=teacher_uuid) }}</a>
+</div>
+{% endblock %}
