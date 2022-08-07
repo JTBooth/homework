@@ -4,7 +4,7 @@
   {% with stage=1 %}
   {% include "arrow_bar.html" %}
   {% endwith %}
-  <form action="{{ url_for('create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
+  <form action="{{ url_for('page.create_quiz') }}" method="POST" id="make-quiz-form" class="quiz">
     <fieldset>
       <div>
         <label>試験の名前</label>

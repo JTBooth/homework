@@ -18,7 +18,7 @@
     <span class="arrow-header">成績を共有する</span>
   </div>
 </div>
-<form action="{{ url_for('grade_quiz', teacher_uuid=teacher_uuid) }}" method="POST" class="quiz">
+<form action="{{ url_for('page.grade_quiz', teacher_uuid=teacher_uuid) }}" method="POST" class="quiz">
   <fieldset>
     <div>
       <label>試験の名前</label>
