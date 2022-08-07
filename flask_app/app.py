@@ -2,7 +2,7 @@ from flask import Flask, g
 import sqlite3
 
 def create_app(config_filename):
-  app = Flask(__name__)
+  app = Flask(__name__, template_folder='../templates', static_folder='../static')
   app.config.from_pyfile(config_filename)
 
   @app.teardown_appcontext
