@@ -1,8 +1,21 @@
 {% extends "base.html" %}
-{% block title %}Finished Grading{% endblock %}
+{% block title %}採点終了{% endblock %}
 {% block content %}
 {% with stage=4 %}
 {% include "arrow_bar.html" %}
 {% endwith %}
-You did it gamer
+<p>
+  生徒に採点が終了したことを知らせてください。
+</p>
+<p>
+  採点結果は生徒が解答送信時に受信したメール中のリンクから確認することができます。
+</p>
+<br>
+<p>
+  ご意見や、追加してほしい機能がありましたら、ぜひ下記のtwitterまでDMよろしくおねがいします！
+</p>
+<p>
+  リクエストにはなるべく早く答えさせていただく予定です。
+</p>
+<a href="http://twitter.com/chisa_koiwa">http://twitter.com/chisa_koiwa</a>
 {% endblock %}

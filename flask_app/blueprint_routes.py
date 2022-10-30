@@ -147,9 +147,17 @@ def submit_quiz(student_uuid):
   )
   db.commit()
 
+  quiz_metadata = load_quiz_headers(cursor, quiz_id=quiz_id)
+
   url = url_for("page.see_feedback", student_uuid=student_uuid, student_id=student_id, _external=True)
-  # BOOKMARK
-  send_feedback_link_email('chisa@irohaforms.com', parsed_form['header']['student_email'], 'Quiz Feedback', url)
+  send_feedback_link_email(
+    'chisa@irohaforms.com', 
+    parsed_form['header']['student_email'], 
+    'Quiz Feedback', 
+    url, 
+    quiz_metadata['teacher name'], 
+    quiz_metadata['quiz name']
+  )
   return redirect(url_for("page.see_feedback", student_uuid=student_uuid, student_id=student_id))
 
 @page_bp.route("/student/quiz/<student_uuid>/feedback/<student_id>", methods=["GET"])
@@ -241,9 +249,11 @@ def create_quiz():
   cursor.executemany(query, questions)
   db.commit()
 
-  url = url_for('page.quiz_links', teacher_uuid=teacher_uuid, _external=True)
-  send_quiz_link_email("chisa@irohaforms.com", out['header']['teacher_email'], "Quiz Links", url)
-  return redirect(url)
+  redirect_url = url_for('page.quiz_links', teacher_uuid=teacher_uuid)
+  teacher_url = url_for('page.grade_quiz', teacher_uuid=teacher_uuid, _external=True)
+  student_url = url_for('page.take_quiz', student_uuid=student_uuid, _external=True)
+  send_quiz_link_email("chisa@irohaforms.com", out['header']['teacher_email'], "Quiz Links", teacher_url, student_url, out['header']['quiz_name'])
+  return redirect(redirect_url)
 
 def load_quiz_headers(cursor, quiz_id):
   quiz_headers = cursor.execute("""

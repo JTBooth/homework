@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Create Form{% endblock %}
+{% block title %}穴埋め問題を作る{% endblock %}
 {% block content %}
   {% with stage=1 %}
   {% include "arrow_bar.html" %}
@@ -27,7 +27,7 @@
       <button type="button" onclick="addQuestion(event)">＋質問を追加</button>
       <button type="submit" id="submit-button" class="mega-button" disabled>
         保存する
-        <span class="disabled-tooltip">Quiz name, teacher name and teacher email are required</span>
+        <span class="disabled-tooltip">試験の名前、先生の名前、先生のメールアドレスを入力してください</span>
       </input>
     </div>
   </form>

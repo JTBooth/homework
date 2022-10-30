@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Quiz Links{% endblock %}
+{% block title %}試験を共有する{% endblock %}
 {% block content %}
 
 {% with stage=2 %}
@@ -13,4 +13,7 @@
   <label>生徒が回答したあと、下記のリンクから採点してください。</label>
   <a href="{{ url_for('page.grade_quiz', teacher_uuid=teacher_uuid) }}">http://irohaforms.com{{ url_for('page.grade_quiz', teacher_uuid=teacher_uuid) }}</a>
 </div>
+<p>
+  以上のリンクはメールでもお送りしています。
+</p>
 {% endblock %}

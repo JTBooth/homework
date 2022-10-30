@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Feedback{% endblock %}
+{% block title %}採点結果{% endblock %}
 {% block content %}
 <div class="quiz">
   <div class="quiz-header">
@@ -15,11 +15,11 @@
     </fieldset>
     <fieldset>
       <div>
-        <label>student name</label>
+        <label>名前</label>
         <span>{{student_metadata["student name"]}}</span>
       </div>
       <div>
-        <label>student email</label>
+        <label>メールアドレス</label>
         <span>{{student_metadata["student email"]}}</span>
       </div>
     </fieldset>
