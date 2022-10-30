@@ -23,13 +23,17 @@ header {
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
-  min-width: max-content;
   border-bottom: 1px solid var(--fade-border-color);
 
   background-color: white;
   color: var(--accent-color);
   font-size: 2rem;
   font-weight: bolder;
+  overflow-wrap: break-word;
+}
+
+header > span {
+  white-space: nowrap;
 }
 
 main {
