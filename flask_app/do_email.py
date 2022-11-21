@@ -2,6 +2,8 @@ from postmarker.core import PostmarkClient
 from email.utils import parseaddr
 from flask import current_app
 
+# Server token deactivated due to accidentally publicizing it on github
+# TODO store it in the environment
 postmark = PostmarkClient(server_token="6fa7fc06-4742-489c-bad4-08c32ede9497")
 def send_quiz_link_email(from_addr, to_addr, subject, teacher_url, student_url, quiz_name):
   _, to_addr_parsed = parseaddr(to_addr)
