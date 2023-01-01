@@ -36,7 +36,7 @@ def send_quiz_link_email(from_addr, to_addr, subject, teacher_url, student_url, 
 def send_feedback_link_email(from_addr, to_addr, subject, url, teacher_name, quiz_name):
   _, to_addr_parsed = parseaddr(to_addr)
 
-  if current_app.config['REALLY_SEND_EMAILS'] or True:
+  if current_app.config['REALLY_SEND_EMAILS']:
     if to_addr_parsed:
       response = postmark.emails.send(
         From=from_addr,

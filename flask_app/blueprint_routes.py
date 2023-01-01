@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect, url_for, g, current_app
-from email.utils import parseaddr
 from uuid import uuid4
 import sqlite3
 
