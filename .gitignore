@@ -3,3 +3,5 @@ pycache/*
 *cpython*
 # Important - this is ignored in gitignore but not excluded from deploy to preserve privacy.
 app_secrets.py
+:memory
+*\.db
