@@ -150,7 +150,7 @@ def submit_quiz(student_uuid):
 
   url = url_for("page.see_feedback", student_uuid=student_uuid, student_id=student_id, _external=True)
   send_feedback_link_email(
-    'chisa@irohaforms.com', 
+    'info@irohaforms.com', 
     parsed_form['header']['student_email'], 
     'Quiz Feedback', 
     url, 
@@ -251,7 +251,7 @@ def create_quiz():
   redirect_url = url_for('page.quiz_links', teacher_uuid=teacher_uuid)
   teacher_url = url_for('page.grade_quiz', teacher_uuid=teacher_uuid, _external=True)
   student_url = url_for('page.take_quiz', student_uuid=student_uuid, _external=True)
-  send_quiz_link_email("chisa@irohaforms.com", out['header']['teacher_email'], "Quiz Links", teacher_url, student_url, out['header']['quiz_name'])
+  send_quiz_link_email("info@irohaforms.com", out['header']['teacher_email'], "Quiz Links", teacher_url, student_url, out['header']['quiz_name'])
   return redirect(redirect_url)
 
 def load_quiz_headers(cursor, quiz_id):
