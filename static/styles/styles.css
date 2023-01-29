@@ -87,7 +87,7 @@ ol > li.quiz-question::before {
 
 .quiz-question::before {
   counter-increment: quiz-item-counter 1;
-  content: "質 " counter(quiz-item-counter) ": ";
+  content: "問 " counter(quiz-item-counter) ": ";
   font-weight: bold;
 }
 
