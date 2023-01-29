@@ -76,6 +76,10 @@ ol > li.quiz-question::before {
   counter-reset: quiz-item-counter;
 }
 
+ol {
+  counter-reset: quiz-item-counter;
+}
+
 .quiz-question, .example-quiz-question {
   display: block;
   border: 1px solid var(--fade-border-color);
