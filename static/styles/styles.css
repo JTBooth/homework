@@ -60,8 +60,37 @@ ol > li {
 }
 
 ol > li.quiz-question::marker {
-  content: "問 " counter(list-item) ".";
   font-weight: bold;
+}
+
+ol > li.quiz-question::before {
+  font-weight: bold;
+}
+
+.example-quiz-question::before {
+  content: "例題:";
+}
+
+#quiz-body {
+  counter-reset: quiz-item-counter;
+}
+
+.quiz-question, .example-quiz-question {
+  display: block;
+  border: 1px solid var(--fade-border-color);
+  border-radius: 1em;
+  padding: 1em;
+  background-color: white;
+  margin-block: 1em;
+}
+
+.quiz-question::before {
+  counter-increment: quiz-item-counter 1;
+  content: "質問 " counter(quiz-item-counter) ": ";
+}
+
+.quiz-question-body {
+  display: inline-block;
 }
 
 ol > li:not(:last-child) {
@@ -73,7 +102,9 @@ ol > li:not(:last-child) {
 }
 
 .quiz-question {
-  position: relative;;
+  position: relative;
+  box-sizing: border-box;
+  height: fit-content;
 }
 
 .quiz-question::marker {
@@ -84,6 +115,7 @@ ol > li:not(:last-child) {
   display: inline-block;
   vertical-align: top;
   margin-inline: 1em;
+  box-sizing: border-box;
 }
 
 .example-quiz-question {
@@ -91,7 +123,6 @@ ol > li:not(:last-child) {
 }
 
 .example-quiz-question::marker {
-  content: "例題";
   font-weight: bolder;
 }
 

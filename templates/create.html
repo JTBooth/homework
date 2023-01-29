@@ -19,10 +19,10 @@
         <input type="text" id="header-teacher_email" name="header-teacher_email" oninput="trackInput('index', this.name, this.value, emailValidator)">
       </div>
     </fieldset>
-    <ol id="quiz-body" start="0">
-      <li is="example-quiz-question" left_text="どうして日本語" right_text="勉強していますか。"></li>
-      <li is="quiz-question"></li>
-    </ol>
+    <div id="quiz-body" start="0">
+      <example-quiz-question></example-quiz-question>
+      <quiz-question></quiz-question>
+    </div>
     <div class="button-bar">
       <button type="button" onclick="addQuestion(event)">＋質問を追加</button>
       <button type="submit" id="submit-button" class="mega-button" disabled>

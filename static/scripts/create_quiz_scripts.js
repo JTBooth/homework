@@ -1,6 +1,6 @@
 let questions = 0;
 
-class QuizQuestion extends HTMLLIElement {
+class QuizQuestion extends HTMLElement {
   constructor() {
     super();
   }
@@ -36,9 +36,9 @@ class QuizQuestion extends HTMLLIElement {
   }
 }
 
-window.customElements.define('quiz-question', QuizQuestion, {extends: 'li'});
+customElements.define('quiz-question', QuizQuestion);
 
-class ExampleQuizQuestion extends HTMLLIElement {
+class ExampleQuizQuestion extends HTMLElement {
   constructor() {
     super();
   }
@@ -67,7 +67,7 @@ class ExampleQuizQuestion extends HTMLLIElement {
   }
 }
 
-window.customElements.define('example-quiz-question', ExampleQuizQuestion, {extends: 'li'});
+window.customElements.define('example-quiz-question', ExampleQuizQuestion);
 
 function addQuestion(event) {
   event.preventDefault();
