@@ -73,7 +73,7 @@
                 name="a-{{a['id']}}"
                 id="a-{{a['id']}}-batsu"
                 value="❌"
-                {% if a['score'] == "X" %}checked{% endif %}
+                {% if a['score'] == "❌" %}checked{% endif %}
               >
             </td>
             <td>
@@ -81,6 +81,7 @@
                 type="text"
                 name="a-{{a['id']}}-correct"
                 id="a-{{a['id']}}-correct"
+                value="{{ a.get('correct_answer', '')}}"
               >
             </td>
           </tr>

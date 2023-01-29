@@ -45,6 +45,7 @@ def grade_quiz(teacher_uuid):
         answer.minor_index, 
         answer.response_1,
         feedback.score,
+        feedback.correct_answer,
         student.name
       FROM answer 
       LEFT JOIN feedback
@@ -64,7 +65,8 @@ def grade_quiz(teacher_uuid):
           'student_id': a[1],
           'response_1': a[3],
           'score': a[4],
-          'student name': a[5],
+          'correct_answer': a[5],
+          'student name': a[6],
         }
         for a in answers
         if a[2] == qh['minor_index']
