@@ -81,7 +81,7 @@
                 type="text"
                 name="a-{{a['id']}}-correct"
                 id="a-{{a['id']}}-correct"
-                value="{{ a.get('correct_answer', '')}}"
+                {% if a['correct_answer'] %} value="{{a['correct_answer']}}" {% endif %}
               >
             </td>
           </tr>
